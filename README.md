@@ -38,9 +38,9 @@ backend/
 
 Create a `.env` file in the backend root:
 
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/rbac_system
+MONGO_URI=mongodb+srv://rbac_user:rbacPassword@cluster0.kfhgjse.mongodb.net/rbac_system?retryWrites=true&w=majority
 JWT_SECRET=verysecret
+PORT=5000
 
 
 ## Scripts
