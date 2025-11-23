@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./db');
+const serverless = require('serverless-http'); // use serverless
 
 const authRoutes = require('./routes/auth');
 const usersRoutes = require('./routes/users');
@@ -9,9 +10,11 @@ const rolesRoutes = require('./routes/roles');
 const permissionsRoutes = require('./routes/permissions');
 
 const app = express();
-// app.use(cors());
+
 app.use(cors({
-  origin: ["https://rbac-frontend-opal.vercel.app"], 
+  origin: [
+    "https://rbac-frontend-opal.vercel.app" // your live frontend
+  ],
   credentials: true
 }));
 
@@ -30,7 +33,13 @@ app.get('/api/permissions', async (req, res) => {
   res.json(perms);
 });
 
+
+// Connect DB immediately for Vercel
 const PORT = process.env.PORT || 5000;
 connectDB(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/rbac_system').then(()=>{
   app.listen(PORT, ()=> console.log('🚀 Server on port', PORT));
 });
+
+
+// Export for Vercel serverless
+module.exports.handler = serverless(app);
