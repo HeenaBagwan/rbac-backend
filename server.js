@@ -11,9 +11,10 @@ const permissionsRoutes = require('./routes/permissions');
 const app = express();
 // app.use(cors());
 app.use(cors({
-  origin: ["http://localhost:5173", "https://rbac-frontend-opal.vercel.app"],
+  origin: ["https://rbac-frontend-opal.vercel.app"], 
   credentials: true
 }));
+
 
 app.use(express.json());
 
